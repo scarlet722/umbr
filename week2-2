@@ -1,0 +1,38 @@
+def get_integer_list():
+    input_str = input("정수를 공백으로 구분하여 입력하세요 (또는 'done' 을 입력하여 종료): ")
+    
+    if input_str.lower() == 'done':
+        print("프로그램 종료. 감사합니다.")
+        return None
+    
+    input_list = input_str.split()
+    integers = []
+    
+    for item in input_list:
+        try:
+            integer = int(item)
+            integers.append(integer)
+        except ValueError:
+            print(f"'{item}'은(는) 유효한 정수가 아닙니다. 정수를 입력하세요.")
+            return get_integer_list()
+    
+    if len(integers) < 2:
+        print("최소한 두 개 이상의 정수를 입력해야 합니다.")
+        return get_integer_list()
+    
+    return integers
+
+def calculate_sum(integers):
+    if len(integers) == 1:
+        return integers[0]
+    else:
+        return integers[0] + calculate_sum(integers[1:])
+
+if __name__ == '__main__':
+    while True:
+        integer_list = get_integer_list()
+        if integer_list is None:
+            break
+        else:
+            total = calculate_sum(integer_list)
+            print("입력된 정수의 합은 ==>", total)

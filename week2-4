@@ -1,0 +1,15 @@
+import re
+
+with open("mbox.txt", "r") as file:
+    text = file.read()
+
+pattern = r"New Revision : (\d+)"
+
+numbers = re.findall(pattern, text)
+numbers = [int(number) for number in numbers]
+
+if numbers:
+    average = sum(numbers) / len(numbers)
+    print("평균값:", average)
+else:
+    print("포맷에 맞는 숫자가 발견되지 않았습니다.")
